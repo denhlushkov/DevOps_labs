@@ -1,0 +1,26 @@
+{
+  "name": "devops_labs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "migrate": "node migrate.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denhlushkov/DevOps_labs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/denhlushkov/DevOps_labs/issues"
+  },
+  "homepage": "https://github.com/denhlushkov/DevOps_labs#readme"
+}

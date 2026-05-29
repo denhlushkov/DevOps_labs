@@ -1,0 +1,17 @@
+[Unit]
+Description=DevOps Labs Node.js Service
+Requires=devops_labs.socket
+After=network.target postgresql.service
+
+[Service]
+Type=simple
+User=app
+Group=app
+WorkingDirectory=/opt/devops_labs
+Environment=NODE_ENV=production
+ExecStartPre=/usr/bin/node /opt/devops_labs/migrate.js
+ExecStart=/usr/bin/node /opt/devops_labs/app.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
