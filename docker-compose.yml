@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: task_tracker_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: devops_user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: devops_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - devops-net
+
+  web:
+    build: 
+      context: ./app
+      dockerfile: Dockerfile
+    container_name: task_tracker_web
+    restart: unless-stopped
+    environment:
+      - CONFIG_PATH=/etc/devops_labs/config.json
+    volumes:
+      - ./config/config.json:/etc/devops_labs/config.json:ro
+    depends_on:
+      - db
+    networks:
+      - devops-net
+
+  nginx:
+    image: nginx:alpine
+    container_name: task_tracker_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./config/devops_labs.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+    networks:
+      - devops-net
+
+networks:
+  devops-net:
+    driver: bridge
+
+volumes:
+  pgdata:
