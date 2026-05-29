@@ -9,6 +9,7 @@ User=app
 Group=app
 WorkingDirectory=/opt/devops_labs
 Environment=NODE_ENV=production
+Environment=CONFIG_PATH=/etc/devops_labs/config.json
 ExecStartPre=/usr/bin/node /opt/devops_labs/migrate.js
 ExecStart=/usr/bin/node /opt/devops_labs/app.js
 Restart=on-failure
