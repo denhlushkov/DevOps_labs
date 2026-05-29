@@ -5,7 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "migrate": "node migrate.js"
+    "test": "cross-env NODE_PATH=./node_modules jest --config=../jest.config.js",
+    "migrate": "node migrate.js",
+    "lint": "eslint ."
   },
   "dependencies": {
     "express": "^4.19.2",
@@ -22,5 +24,12 @@
   "bugs": {
     "url": "https://github.com/denhlushkov/DevOps_labs/issues"
   },
-  "homepage": "https://github.com/denhlushkov/DevOps_labs#readme"
+  "homepage": "https://github.com/denhlushkov/DevOps_labs#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "cross-env": "^10.1.0",
+    "eslint": "^10.4.0",
+    "jest": "^30.4.2",
+    "supertest": "^7.2.2"
+  }
 }

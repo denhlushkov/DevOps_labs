@@ -194,12 +194,10 @@ app.post('/tasks/:id/done', async (req, res) => {
     }
 });
 
-if (process.env.LISTEN_FDS === '1') {
-    app.listen({ fd: 3 }, () => {
-        console.log('Application started successfully via systemd socket activation (fd: 3).');
-    });
-} else {
-    app.listen(config.port, config.host, () => {
-        console.log(`Застосунок запущено локально на http://${config.host}:${config.port}`);
-    });
+if (require.main === module) {
+  app.listen(config.port, () => {
+    console.log(`Server is running on port ${config.port}`);
+  });
 }
+
+module.exports = app;
