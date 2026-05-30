@@ -1,0 +1,41 @@
+---
+- name: Create teacher user
+  user:
+    name: teacher
+    password: "{{ '12345678' | password_hash('sha512') }}"
+    groups: sudo
+    append: yes
+    shell: /bin/bash
+
+- name: Create app system user
+  user:
+    name: app
+    system: yes
+    shell: /usr/sbin/nologin
+  when: "'workers' in group_names"
+
+- name: Create operator user
+  user:
+    name: operator
+    password: "{{ '12345678' | password_hash('sha512') }}"
+    shell: /bin/bash
+  when: "'workers' in group_names"
+
+- name: Configure limited sudo for operator
+  copy:
+    dest: /etc/sudoers.d/operator
+    content: |
+      operator ALL=(ALL) NOPASSWD: /bin/systemctl start web-app, /bin/systemctl stop web-app, /bin/systemctl restart web-app, /bin/systemctl status web-app, /bin/systemctl reload nginx
+    validate: /usr/sbin/visudo -cf %s
+  when: "'workers' in group_names"
+
+- name: Ensure student directory exists
+  file:
+    path: /home/student
+    state: directory
+    mode: '0755'
+
+- name: Create gradebook file with variant number
+  copy:
+    dest: /home/student/gradebook
+    content: "{{ variant_number }}\n"

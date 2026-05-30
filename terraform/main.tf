@@ -35,6 +35,7 @@ resource "libvirt_network" "lab_net" {
 resource "libvirt_volume" "worker_vol" {
   name           = "worker-vol.qcow2"
   base_volume_id = libvirt_volume.ubuntu_image.id
+  size           = 10737418240 
 }
 
 resource "libvirt_domain" "worker" {
@@ -63,6 +64,7 @@ resource "libvirt_domain" "worker" {
 resource "libvirt_volume" "db_vol" {
   name           = "db-vol.qcow2"
   base_volume_id = libvirt_volume.ubuntu_image.id
+  size           = 10737418240 
 }
 
 resource "libvirt_domain" "db" {

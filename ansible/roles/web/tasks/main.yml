@@ -1,0 +1,46 @@
+---
+- name: Install Nginx and Node.js
+  apt:
+    name:
+      - nginx
+      - nodejs
+      - npm
+    state: present
+    update_cache: yes
+
+- name: Create app directory
+  file:
+    path: /opt/web-app
+    state: directory
+    owner: app
+    group: app
+
+- name: Generate .env file from template
+  template:
+    src: env.j2
+    dest: /opt/web-app/.env
+    owner: app
+    group: app
+
+- name: Configure Nginx from template
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+  notify: restart nginx
+
+- name: Create systemd service for web-app
+  copy:
+    dest: /etc/systemd/system/web-app.service
+    content: |
+      [Unit]
+      Description=Node.js Web App
+      After=network.target
+      [Service]
+      ExecStart=/usr/bin/node /opt/web-app/index.js
+      WorkingDirectory=/opt/web-app
+      User=app
+      Restart=always
+      EnvironmentFile=/opt/web-app/.env
+      [Install]
+      WantedBy=multi-user.target
+  notify: restart web-app
