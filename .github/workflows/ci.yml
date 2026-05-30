@@ -116,7 +116,7 @@ jobs:
     steps:
       - name: Deploy application via SSH
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@192.168.X.X "sudo systemctl restart task-tracker-docker"
+          ssh -o StrictHostKeyChecking=no ubuntu@192.168.88.157 "sudo systemctl restart task-tracker-docker"
 
       - name: Verify Deployment (Health Check)
         run: |
