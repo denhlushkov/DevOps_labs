@@ -122,7 +122,7 @@ jobs:
         run: |
           echo "Waiting for container to start..."
           sleep 5
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://192.168.88.157/health/alive)
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://192.168.88.157/)
           
           if [ "$HTTP_STATUS" -eq 200 ]; then
             echo "Deployment successful! Service is alive."
