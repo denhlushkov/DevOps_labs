@@ -1,0 +1,13 @@
+#cloud-config
+users:
+  - default
+  - name: ansible
+    gecos: Ansible Automation User
+    groups: sudo
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL+Jc5qVh+nB7mwkni6rvEuOcEkF8OCgHQEYzind5Pig den@DEN-HACK
+
+ssh_pwauth: false
+ 

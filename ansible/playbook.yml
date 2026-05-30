@@ -1,0 +1,20 @@
+---
+- name: Configure Users and Basics
+  hosts: all
+  become: yes
+  vars:
+    variant_number: 7
+  roles:
+    - users
+
+- name: Configure Database
+  hosts: db
+  become: yes
+  roles:
+    - db
+
+- name: Configure Web Application
+  hosts: workers
+  become: yes
+  roles:
+    - web

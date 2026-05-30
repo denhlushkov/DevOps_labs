@@ -1,0 +1,4 @@
+# root
+local   all             all                                     peer
+# worker-node
+host    all             all             {{ hostvars['worker-node']['ansible_host'] }}/32  scram-sha-256

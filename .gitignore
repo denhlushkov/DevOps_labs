@@ -1,0 +1,15 @@
+# Terraform
+terraform/.terraform/
+terraform/*.tfstate
+terraform/*.tfstate.backup
+terraform/.terraform.lock.hcl
+terraform/*.iso
+terraform/*.img
+terraform/*.qcow2
+
+# Node.js / App
+node_modules/
+.env
+
+# Ansible
+*.retry
